@@ -32,5 +32,24 @@ namespace ProjectWeb1.BussinessLogic
             }
             return foodList;
         }
+
+        public async Task<List<FoodItem>> GetFoodById(int id)
+        {
+            DataTable dt = await _sqlServer.GetData($"select * from FoodItem where Id ={id}");
+            List<FoodItem> foodList = new List<FoodItem>();
+            FoodItem food = new FoodItem();
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+
+                food.Id = (int)dt.Rows[i]["Id"];
+                food.ImgSource = dt.Rows[i]["ImgSource"].ToString();
+                food.Title = dt.Rows[i]["Title"].ToString();
+                food.Descr = dt.Rows[i]["Descr"].ToString();
+                foodList.Add(food);
+            }
+
+            return foodList;
+        }
+
     }
 }

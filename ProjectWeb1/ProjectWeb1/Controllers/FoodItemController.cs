@@ -38,5 +38,26 @@ namespace ProjectWeb1.Controllers
             }
 
         }
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetFoodById(int id)
+        {
+            try
+            {
+                var response = await _foodItemLogic.GetFoodById(id);
+                if (response != null && response.Count > 0)
+                {
+                    return Ok(response);
+                }
+                else
+                {
+                    return BadRequest(response);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
+            }
+
+        }
     }
 }
