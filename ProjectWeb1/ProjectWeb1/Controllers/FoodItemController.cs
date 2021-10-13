@@ -39,5 +39,28 @@ namespace ProjectWeb1.Controllers
             }
 
         }
+        // Delete api/<UserController>
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteFood(int id)
+        {
+            try
+            {
+                var response = await _foodItemLogic.DeleteFood(id);
+                if (id > 0)
+                {
+                    return Ok(response);
+                }
+                else
+                {
+                    return BadRequest(response);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
+            }
+
+        }
     }
 }
