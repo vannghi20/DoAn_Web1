@@ -1,27 +1,26 @@
-Create database OnlineShop
-use OnlineShop
+Create database FoodOder
+use FoodOder
 
 --User--
-Create table Account
+Create table FoodItem
 (
-	UserName nvarchar(50),
-	Password nvarchar(10)
+	Id int IDENTITY(1,1) PRIMARY KEY,
+    ImgSource nvarchar(255) NOT NULL,
+    Title nvarchar(255),
+    Descr nvarchar(500)
 )
-
---Proc--
+Insert into FoodItem values ('https://d1ralsognjng37.cloudfront.net/9dd6494b-84f6-4459-8b55-359d45f8723c.jpeg','Wet Burrito','French Fries, Any Kind of meat, Lettuce, Cheese, Sour Cream, Beans, Pico de Gallo, Avocado')
+Insert into FoodItem values ('https://d1ralsognjng37.cloudfront.net/e05d185a-cca5-418e-b12d-4896e0e76100.jpeg','Super Burrito de Carne','Rice, Beans, Avocado, Sour Cream, Cheese, Hot Salsa, Onions and Choice of Meat.')
+Insert into FoodItem values ('https://d1ralsognjng37.cloudfront.net/8271ecd9-5999-45ef-94bd-9548e20e2cc8','Shrimp Dumplings','French Fries, Any Kind of meat, Lettuce, Cheese, Sour Cream, Beans, Pico de Gallo, Avocado')
+--Proc Select All FoodItem--
 go
-Create proc NewAccount
-	@UserName nvarchar(50),
-	@Password nvarchar(10)
+Create proc SelectFoodItem
 	as
-	begin
-	declare @count int
-	declare @res bit
-	select @count = COUNT(*) from Account where @UserName = UserName and @Password = Password
-	if(@count >0)
-		set @res = 1
-	else
-		set @res = 0
+	Select * from FoodItem
 
-	select @res
-	end
+--Proc Select FoodItem by Id--
+go
+Create proc SelectFoodItemById
+	@Id int
+	as
+	Select * from FoodItem where Id = @Id

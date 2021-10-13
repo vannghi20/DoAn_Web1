@@ -43,5 +43,35 @@ namespace ProjectWeb1.SqlHelper
             }
             return dataTable;
         }
+        public async Task<int> ExcuteDate(string str, params IDataParameter[] sqlParams)
+        {
+            int rows = -1;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_getConnectionString.SqlConnection))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(str, connection))
+                    {
+                        if (sqlParams != null)
+                        {
+                            foreach (IDataParameter parameter in sqlParams)
+                            {
+                                command.Parameters.Add(parameter);
+
+                            }
+                            rows = await command.ExecuteNonQueryAsync();
+
+                        }
+                    }
+                    connection.Close();
+                }
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return rows;
+        }
     }
 }
