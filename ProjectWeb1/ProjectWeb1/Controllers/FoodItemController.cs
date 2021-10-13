@@ -17,12 +17,13 @@ namespace ProjectWeb1.Controllers
             _foodItemLogic = foodItemLogic;
         }
         // GET: api/<FoodItemController>
-        [HttpGet]
-        public async Task<ActionResult> GetAllFood()
+   
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetFoodById(int id)
         {
             try
             {
-                var response = await _foodItemLogic.GetAllFood();
+                var response = await _foodItemLogic.GetFoodById(id);
                 if (response != null && response.Count > 0)
                 {
                     return Ok(response);
