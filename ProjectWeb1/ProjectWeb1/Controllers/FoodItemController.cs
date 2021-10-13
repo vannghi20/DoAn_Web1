@@ -17,27 +17,7 @@ namespace ProjectWeb1.Controllers
             _foodItemLogic = foodItemLogic;
         }
         // GET: api/<FoodItemController>
-        [HttpGet]
-        public async Task<ActionResult> GetAllFood()
-        {
-            try
-            {
-                var response = await _foodItemLogic.GetAllFood();
-                if (response != null && response.Count > 0)
-                {
-                    return Ok(response);
-                }
-                else
-                {
-                    return BadRequest(response);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.ToString());
-            }
-
-        }
+   
         [HttpGet("{id}")]
         public async Task<ActionResult> GetFoodById(int id)
         {
