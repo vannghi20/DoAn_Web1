@@ -94,6 +94,14 @@ namespace ProjectWeb1.Controllers
             {
                 var response = await _foodItemLogic.UpdateFood(food);
                 if (food.ImgSource != null && food.Title != null && food.Descr != null)
+        // Delete api/<UserController>-----
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteFood(int id)
+        {
+            try
+            {
+                var response = await _foodItemLogic.DeleteFood(id);
+                if (id > 0)
                 {
                     return Ok(response);
                 }

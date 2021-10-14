@@ -12,6 +12,7 @@ namespace ProjectWeb1.Interface
         Task<List<FoodItem>> GetFoodById(string id);
         Task<string> UpdateFood(FoodItem food);
         Task<bool> CreateNewFood(FoodItem food);
+        Task<List<FoodItem>> GetFoodById(string id);
         Task<bool> DeleteFood(int Id);
     }
 
