@@ -20,7 +20,7 @@ namespace ProjectWeb1.Controllers
         // GET: api/<FoodItemController>
    
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetFoodById(int id)
+        public async Task<ActionResult> GetFoodById(string id)
         {
             try
             {
@@ -63,6 +63,29 @@ namespace ProjectWeb1.Controllers
 
         }
 
+        // POST api/<UserController>---code của trâm
+        [HttpPost("add")]
+        public async Task<ActionResult> CreateNewFood(FoodItem food)
+        {
+            try
+            {
+                var response = await _foodItemLogic.CreateNewFood(food);
+                if (food.Title != null && food.Id > 0)
+                {
+                    return Ok(response);
+                }
+                else
+                {
+                    return BadRequest(response);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
+            }
+
+        }
         // POST api/<UserController>
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateFood(FoodItem food)

@@ -33,22 +33,48 @@ namespace ProjectWeb1.BussinessLogic
             }
             return foodList;
         }
-        public async Task<List<FoodItem>> GetFoodById(int id)
+        public async Task<List<FoodItem>> GetFoodById(string id)
         {
-            DataTable dt = await _sqlServer.GetData($"select * from FoodItem where Id ={id}");
             List<FoodItem> foodList = new List<FoodItem>();
-            FoodItem food = new FoodItem();
-            for (int i = 0; i < dt.Rows.Count; i++)
+            int idReturn = 0;
+
+            bool kiemTra = int.TryParse(id, out idReturn);
+
+            if (kiemTra == true)
             {
+                DataTable dt = await _sqlServer.GetData($"select * from FoodItem where Id ={id}");
+                FoodItem food = new FoodItem();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
 
-                food.Id = (int)dt.Rows[i]["Id"];
-                food.ImgSource = dt.Rows[i]["ImgSource"].ToString();
-                food.Title = dt.Rows[i]["Title"].ToString();
-                food.Descr = dt.Rows[i]["Descr"].ToString();
-                foodList.Add(food);
+                    food.Id = (int)dt.Rows[i]["Id"];
+                    food.ImgSource = dt.Rows[i]["ImgSource"].ToString();
+                    food.Title = dt.Rows[i]["Title"].ToString();
+                    food.Descr = dt.Rows[i]["Descr"].ToString();
+                    foodList.Add(food);
+                }
             }
-
             return foodList;
+        }
+        public async Task<bool> CreateNewFood(FoodItem food)
+        {
+            string query = "insert into FoodItem (ImgSource,Title,Descr) values (@ImgSource,@Title,@Descr);";
+            var parameters = new IDataParameter[]
+            {
+                new SqlParameter("@ImgSource", food.ImgSource),
+                new SqlParameter("@Title",food.Title),
+                new SqlParameter("@Descr",food.Descr),
+           };
+
+            if (await _sqlServer.ExcuteDate(query, parameters) > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+
+            }
         }
         // DeleteFood
         public async Task<bool> DeleteFood(int id)
