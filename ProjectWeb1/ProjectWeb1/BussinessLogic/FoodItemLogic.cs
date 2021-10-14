@@ -29,6 +29,7 @@ namespace ProjectWeb1.BussinessLogic
                 food.ImgSource = dt.Rows[i]["ImgSource"].ToString();
                 food.Title = dt.Rows[i]["Title"].ToString();
                 food.Descr = dt.Rows[i]["Descr"].ToString();
+                food.Version = (int)dt.Rows[i]["Version"];
                 foodList.Add(food);
             }
             return foodList;
@@ -45,6 +46,7 @@ namespace ProjectWeb1.BussinessLogic
                 food.ImgSource = dt.Rows[i]["ImgSource"].ToString();
                 food.Title = dt.Rows[i]["Title"].ToString();
                 food.Descr = dt.Rows[i]["Descr"].ToString();
+                food.Version = (int)dt.Rows[i]["Version"];
                 foodList.Add(food);
             }
 
@@ -74,13 +76,14 @@ namespace ProjectWeb1.BussinessLogic
         public async Task<string> UpdateFood(FoodItem food)
         {
 
-            string query = "update FoodItem set ImgSource = @ImgSource,Title = @Title, Descr = @Descr where Id = @Id;";
+            string query = "update FoodItem set ImgSource = @ImgSource,Title = @Title, Descr = @Descr where Id = @Id AND Version = @Version;";
             var parameters = new IDataParameter[]
             {
                 new SqlParameter("@Id", food.Id),
                 new SqlParameter("@ImgSource", food.ImgSource),
                 new SqlParameter("@Title",food.Title),
                 new SqlParameter("@Descr",food.Descr),
+                new SqlParameter("@Version",food.Version++),
            };
             if (await _sqlServer.ExcuteDate(query, parameters) > 0)
             {

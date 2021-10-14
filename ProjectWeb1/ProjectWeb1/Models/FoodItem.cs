@@ -11,5 +11,6 @@ namespace ProjectWeb1.Models
         public string ImgSource { get; set; }
         public string Title { get; set; }
         public string Descr { get; set; }
+        public int Version { get; set; }
     }
 }
