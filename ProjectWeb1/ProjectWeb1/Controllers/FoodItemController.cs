@@ -19,7 +19,7 @@ namespace ProjectWeb1.Controllers
         // GET: api/<FoodItemController>
    
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetFoodById(int id)
+        public async Task<ActionResult> GetFoodById(string id)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace ProjectWeb1.Controllers
             }
 
         }
-        // Delete api/<UserController>
+        // Delete api/<UserController>-----
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteFood(int id)
         {

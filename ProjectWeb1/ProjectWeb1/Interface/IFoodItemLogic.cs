@@ -8,7 +8,7 @@ namespace ProjectWeb1.Interface
 {
     public interface IFoodItemLogic
     {
-        Task<List<FoodItem>> GetFoodById(int id);
+        Task<List<FoodItem>> GetFoodById(string id);
         Task<bool> DeleteFood(int Id);
     }
 
