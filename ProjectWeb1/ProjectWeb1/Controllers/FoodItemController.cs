@@ -18,9 +18,8 @@ namespace ProjectWeb1.Controllers
             _foodItemLogic = foodItemLogic;
         }
         // GET: api/<FoodItemController>
-   
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetFoodById(int id)
+        public async Task<ActionResult> GetFoodById(string id)
         {
             try
             {
@@ -62,7 +61,29 @@ namespace ProjectWeb1.Controllers
             }
 
         }
+        // POST api/<UserController>---code của trâm
+        [HttpPost("add")]
+        public async Task<ActionResult> CreateNewFood(FoodItem food)
+        {
+            try
+            {
+                var response = await _foodItemLogic.CreateNewFood(food);
+                if (food.Title != null && food.Id > 0)
+                {
+                    return Ok(response);
+                }
+                else
+                {
+                    return BadRequest(response);
+                }
 
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
+            }
+
+        }
         // POST api/<UserController>
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateFood(FoodItem food)
@@ -71,6 +92,29 @@ namespace ProjectWeb1.Controllers
             {
                 var response = await _foodItemLogic.UpdateFood(food);
                 if (food.ImgSource != null && food.Title != null && food.Descr != null)
+                {
+                    return Ok(response);
+                }
+                else
+                {
+                    return BadRequest(response);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
+            }
+
+        }
+        // Delete api/<UserController>-----
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteFood(int id)
+        {
+            try
+            {
+                var response = await _foodItemLogic.DeleteFood(id);
+                if (id > 0)
                 {
                     return Ok(response);
                 }
