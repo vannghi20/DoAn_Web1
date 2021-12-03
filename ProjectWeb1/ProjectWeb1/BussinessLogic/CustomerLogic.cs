@@ -54,6 +54,43 @@ namespace ProjectWeb1.BussinessLogic
 
             }
         }
-        
+
+        public async Task<List<Customer>> GetAllCustomer()
+        {
+            DataTable dt = await _sqlServer.GetData("select * from Customer");
+            List<Customer> UerLisst = new List<Customer>();
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                Customer ure = new Customer();
+                ure.Id = (int)dt.Rows[i]["Id"];
+                ure.CustomerName = dt.Rows[i]["CustomerName"].ToString();
+                ure.CustomerPhone = dt.Rows[i]["CustomerPhone"].ToString();
+                UerLisst.Add(ure);
+            }
+            return UerLisst;
+        }
+        public async Task<List<Customer>> GetFoodById(string id)
+        {
+            List<Customer> UerLisst = new List<Customer>();
+            int idReturn = 0;
+
+            bool kiemTra = int.TryParse(id, out idReturn);
+
+            if (kiemTra == true)
+            {
+                DataTable dt = await _sqlServer.GetData($"select * from FoodItem where Id ={id}");
+
+                Customer ure = new Customer();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ure = new Customer();
+                    ure.Id = (int)dt.Rows[i]["Id"];
+                    ure.CustomerName = dt.Rows[i]["CustomerName"].ToString();
+                    ure.CustomerPhone = dt.Rows[i]["CustomerPhone"].ToString();
+                    UerLisst.Add(ure);
+                }
+            }
+            return UerLisst;
+        }
     }
 }

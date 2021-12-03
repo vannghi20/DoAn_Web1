@@ -11,7 +11,5 @@ namespace ProjectWeb1.Interface
         Task<bool> Register(Customer customer);
         Task<List<Customer>> GetAllCustomer();
         Task<List<Customer>> GetCustomerById(string id);
-        Task<string> UpdateCustomer(Customer food);
-        Task<bool> DeleteCustomer(int Id);
     }
 }
