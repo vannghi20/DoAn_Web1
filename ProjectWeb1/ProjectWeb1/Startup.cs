@@ -42,6 +42,7 @@ namespace ProjectWeb1
             });
             services.AddSingleton<ISqlServer, SqlService>();
             services.AddSingleton<IFoodItemLogic, FoodItemLogic>();
+            services.AddSingleton<ICustomerLogic, CustomerLogic>();
             services.Configure<GetConnectionString>(Configuration.GetSection(GetConnectionString.Connection));
         }
 
