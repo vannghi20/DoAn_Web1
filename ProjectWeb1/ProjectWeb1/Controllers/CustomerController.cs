@@ -78,6 +78,27 @@ namespace ProjectWeb1.Controllers
             }
 
         }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteCustomer(int id)
+        {
+            try
+            {
+                var response = await _customerLogic.DeleteCustomer(id);
+                if (id > 0)
+                {
+                    return Ok(response);
+                }
+                else
+                {
+                    return BadRequest(response);
+                }
 
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
+            }
+
+        }
     }
 }

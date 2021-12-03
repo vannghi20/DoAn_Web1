@@ -92,5 +92,26 @@ namespace ProjectWeb1.BussinessLogic
             }
             return UerLisst;
         }
+        // DeleteFood
+        public async Task<bool> DeleteCustomer(int id)
+        {
+
+            string query = "delete from Customer where Id = @Id;";
+            var parameters = new IDataParameter[]
+            {
+                new SqlParameter("@Id",id)
+
+           };
+            if (await _sqlServer.ExcuteDate(query, parameters) > 0)
+            {
+
+                return true;
+            }
+            else
+            {
+                return false;
+
+            }
+        }
     }
 }
