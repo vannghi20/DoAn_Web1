@@ -9,7 +9,6 @@ namespace ProjectWeb1.Interface
     public interface IFoodItemLogic
     {
         Task<List<FoodItem>> GetAllFood();
-        Task<List<FoodItem>> GetFoodById(string id);
         Task<string> UpdateFood(FoodItem food);
         Task<bool> CreateNewFood(FoodItem food);
         Task<List<FoodItem>> GetFoodById(string id);
