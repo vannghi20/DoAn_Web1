@@ -94,6 +94,17 @@ namespace ProjectWeb1.Controllers
             {
                 var response = await _foodItemLogic.UpdateFood(food);
                 if (food.ImgSource != null && food.Title != null && food.Descr != null)
+                {
+                    return Ok(response);
+
+                }
+                return BadRequest(response);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         // Delete api/<UserController>-----
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteFood(int id)
